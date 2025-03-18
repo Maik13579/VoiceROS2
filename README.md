@@ -4,6 +4,6 @@ WIP
 
 ## Build
 ```bash
-git submodule update --init
+git submodule update --init --recursive
 docker/build.sh
 ```
