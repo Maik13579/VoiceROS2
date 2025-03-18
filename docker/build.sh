@@ -46,3 +46,9 @@ docker build -t ${IMAGE_TAG} \
   --build-arg BASE_IMAGE=${IMAGE_TAG} \
   -f $PARENT_DIR/vosk_ros2/docker/Dockerfile \
   $PARENT_DIR/vosk_ros2
+
+# Finally build this Dockerfile ontop
+docker build -t ${IMAGE_TAG} \
+  --build-arg BASE_IMAGE=${IMAGE_TAG} \
+  -f $PARENT_DIR/docker/Dockerfile \
+  $PARENT_DIR

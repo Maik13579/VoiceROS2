@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>voice_ros2</name>
+  <version>0.0.1</version>
+  <description>Launch and param files for TTS and STT</description>
+  <maintainer email="Maik.Knof@gmx.de">Maik Knof</maintainer>
+  <license>TODO</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>coqui_tts_ros2</depend>
+  <depend>vosk_ros2</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

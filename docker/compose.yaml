@@ -17,5 +17,5 @@ services:
     tty: true
     devices:
       - /dev/snd:/dev/snd
-    command: ros2 run coqui_tts_ros2 tts_node
-
+    #command: ros2 launch voice_ros2 voice_ros2.launch.py
+    command: tail -f /dev/null

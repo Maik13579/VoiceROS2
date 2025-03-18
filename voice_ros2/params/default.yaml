@@ -1,0 +1,16 @@
+vosk:
+  ros__parameters:
+    model_path: /opt/vosk_model/big_speach_model
+    speaker_model_path: /opt/vosk_model/speaker_model
+    sample_rate: 48000.0
+    block_size: 16000
+    silence_timeout: 5.0
+    max_alternatives: 10
+    set_words: False
+    grammar_file: ''
+    db_file: ''
+
+tts:
+  ros__parameters:
+    model: 'tts_models/en/ljspeech/glow-tts'
+    device: 'cuda' # cpu or cuda
