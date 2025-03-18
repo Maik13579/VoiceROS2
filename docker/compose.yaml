@@ -1,0 +1,21 @@
+services:
+  voice_ros2:
+    container_name: voice_ros2
+    image: voice_ros2
+    runtime: nvidia
+    environment:
+      ROS_DOMAIN_ID: 42
+      DISPLAY: $DISPLAY
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,video,utility,graphics
+      QT_X11_NO_MITSHM: '1'
+      ALSA_CARD: 'Generic' # use aplay -l to find the card name
+    network_mode: host
+    ipc: host
+    privileged: true
+    stdin_open: true
+    tty: true
+    devices:
+      - /dev/snd:/dev/snd
+    command: ros2 run coqui_tts_ros2 tts_node
+

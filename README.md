@@ -2,6 +2,9 @@
 WIP
 
 
+## Dependencies
+- Docker
+
 ## Build
 ```bash
 git submodule update --init --recursive
