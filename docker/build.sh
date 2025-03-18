@@ -22,7 +22,7 @@ docker build -t ${IMAGE_TAG} \
   --build-arg CUDA_MINOR=${CUDA_MINOR} \
   --build-arg CUDA_PATCH=${CUDA_PATCH} \
   --build-arg ROS_DISTRO=${ROS_DISTRO} \
-  -f $PARENT_DIR/coqui_ros2/docker/Dockerfile \
+  -f $PARENT_DIR/coqui_ros2/docker/Base.Dockerfile \
   $PARENT_DIR/coqui_ros2
 
 # Build the vosk_ros2 image using the previously built base image as base.
