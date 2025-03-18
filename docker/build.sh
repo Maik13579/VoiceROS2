@@ -35,14 +35,14 @@ docker build -t ${IMAGE_TAG} \
   -f $PARENT_DIR/coqui_tts_ros2/docker/Base.Dockerfile \
   $PARENT_DIR/coqui_tts_ros2
 
-# Build the vosk_ros2 image using the previously built base image as base.
-docker build -t ${IMAGE_TAG} \
-  --build-arg BASE_IMAGE=${IMAGE_TAG} \
-  -f $PARENT_DIR/vosk_ros2/docker/Dockerfile \
-  $PARENT_DIR/vosk_ros2
-
 # Build the coqui_tts_ros2 image using the previously built vosk_ros2 image as base.
 docker build -t ${IMAGE_TAG} \
   --build-arg BASE_IMAGE=${IMAGE_TAG} \
   -f $PARENT_DIR/coqui_tts_ros2/docker/Dockerfile \
   $PARENT_DIR/coqui_tts_ros2
+
+# Build the vosk_ros2 image using the previously built base image as base.
+docker build -t ${IMAGE_TAG} \
+  --build-arg BASE_IMAGE=${IMAGE_TAG} \
+  -f $PARENT_DIR/vosk_ros2/docker/Dockerfile \
+  $PARENT_DIR/vosk_ros2
