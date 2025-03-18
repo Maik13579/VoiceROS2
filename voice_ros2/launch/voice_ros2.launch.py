@@ -26,6 +26,20 @@ def generate_launch_description():
         name='tts',
         output='screen',
         parameters=[LaunchConfiguration('params_file')],
+        remappings=[
+            ('~/tts_state', '/tts_state')
+        ]
+    )
+
+    tts_voice_clone_node = Node(
+        package='coqui_tts_ros2',
+        executable='tts_node',
+        name='tts_voice_clone',
+        output='screen',
+        parameters=[LaunchConfiguration('params_file')],
+        remappings=[
+            ('~/tts_state', '/tts_state')
+        ]
     )
 
     # Node for Vosk Speech Recognition
@@ -37,14 +51,28 @@ def generate_launch_description():
         parameters=[LaunchConfiguration('params_file')],
         remappings=[
             # Remap tts status to disable listening when tts is talking
-            ('~/tts_status_in', '/tts/tts_state')
+            ('~/tts_status_in', '/tts_state')
+        ]
+    )
+
+    vosk_gpsr_node = Node(
+        package='vosk_ros2',
+        executable='vosk_ros2_node',
+        name='vosk_gpsr',
+        output='screen',
+        parameters=[LaunchConfiguration('params_file')],
+        remappings=[
+            # Remap tts status to disable listening when tts is talking
+            ('~/tts_status_in', '/tts_state')
         ]
     )
 
     return LaunchDescription([
         params_file_arg,
         tts_node,
-        vosk_node
+        tts_voice_clone_node,
+        vosk_node,
+        vosk_gpsr_node
     ])
 
 if __name__ == '__main__':

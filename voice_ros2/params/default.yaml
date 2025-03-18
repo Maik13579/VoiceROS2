@@ -1,11 +1,23 @@
 vosk:
   ros__parameters:
-    model_path: /opt/vosk_model/big_speach_model
+    model_path: /opt/vosk_model/big_speech_model
     speaker_model_path: /opt/vosk_model/speaker_model
     sample_rate: 48000.0
     block_size: 16000
     silence_timeout: 5.0
-    max_alternatives: 10
+    max_alternatives: 0
+    set_words: False
+    grammar_file: ''
+    db_file: ''
+
+vosk_gpsr:
+  ros__parameters:
+    model_path: /opt/vosk_model/gpsr
+    speaker_model_path: /opt/vosk_model/speaker_model
+    sample_rate: 48000.0
+    block_size: 16000
+    silence_timeout: 5.0
+    max_alternatives: 0
     set_words: False
     grammar_file: ''
     db_file: ''
@@ -13,4 +25,9 @@ vosk:
 tts:
   ros__parameters:
     model: 'tts_models/en/ljspeech/glow-tts'
+    device: 'cuda' # cpu or cuda
+
+tts_voice_clone:
+  ros__parameters:
+    model: 'tts_models/multilingual/multi-dataset/xtts_v2'
     device: 'cuda' # cpu or cuda
