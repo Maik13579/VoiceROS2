@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e
 
+# License confirmation prompt
+echo "> You must confirm the following:"
+echo "| > \"I have purchased a commercial license from Coqui: licensing@coqui.ai\""
+echo "| > \"Otherwise, I agree to the terms of the non-commercial CPML: https://coqui.ai/cpml\" - [y/n]"
+read -r CONFIRMATION
+if [ "$CONFIRMATION" != "y" ]; then
+    echo "License not confirmed, exiting."
+    exit 1
+fi
+
 # Get the directory of the script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PARENT_DIR="$(dirname "$SCRIPT_DIR")"
