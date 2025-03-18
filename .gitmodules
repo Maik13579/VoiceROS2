@@ -1,0 +1,4 @@
+[submodule "vosk_ros2"]
+	path = vosk_ros2
+	url = https://github.com/Maik13579/vosk_ros2.git
+	branch = main
