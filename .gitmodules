@@ -2,3 +2,7 @@
 	path = vosk_ros2
 	url = https://github.com/Maik13579/vosk_ros2.git
 	branch = main
+[submodule "coqui_ros2"]
+	path = coqui_ros2
+	url = https://github.com/Maik13579/coqui_ros2.git
+	branch = main
