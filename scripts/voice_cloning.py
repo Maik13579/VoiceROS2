@@ -4,7 +4,6 @@ from rclpy.node import Node
 from rclpy.action import ActionClient
 from coqui_tts_ros2_interfaces.action import TTS as TTSAction
 
-import sys
 from pathlib import Path
 
 def get_wav_files_string(folder: str) -> str:
@@ -18,7 +17,7 @@ def get_wav_files_string(folder: str) -> str:
 
 class GPSR_Demo(Node):
     def __init__(self):
-        super().__init__('gpsr_demo')
+        super().__init__('voice_cloning_demo')
         # Action clients for TTS and Speech Detection
         self.tts_voice_clone_client = ActionClient(self, TTSAction, '/tts_voice_clone/tts')
 
@@ -39,9 +38,9 @@ def main(args=None):
     node = GPSR_Demo()
 
     future = node.tts_voice_clone(
-        "Ich kann auch Deutsch sprechen du Vogel",
-        language='de',
-        speaker_wav=get_wav_files_string(folder="/voices/libtrump")
+        "Hey David, I wanted to tell you that your work is awesome!",
+        language='en',
+        speaker_wav=get_wav_files_string(folder="/voices/ben")
     )
 
     rclpy.spin_until_future_complete(node, future)
