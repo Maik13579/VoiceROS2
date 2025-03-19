@@ -35,7 +35,7 @@ docker build -t ${IMAGE_TAG} --target base \
   -f $PARENT_DIR/coqui_tts_ros2/docker/Dockerfile \
   $PARENT_DIR/coqui_tts_ros2
 
-# Download coquiTTS
+# Build coqui TTS
 docker build -t ${IMAGE_TAG} --target build_tts \
   --build-arg BASE_IMAGE=${IMAGE_TAG} \
   -f $PARENT_DIR/coqui_tts_ros2/docker/Dockerfile \
