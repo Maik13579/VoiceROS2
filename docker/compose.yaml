@@ -20,4 +20,5 @@ services:
     volumes:
       - ../scripts:/scripts
       - ../coqui_tts_ros2/coqui_tts_ros2:/root/ros2_ws/src/coqui_tts_ros2
+      - $HOME/voices:/voices
     command: ros2 launch voice_ros2 voice_ros2.launch.py
