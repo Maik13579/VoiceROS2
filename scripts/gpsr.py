@@ -26,17 +26,8 @@ class GPSR_Demo(Node):
 
         self.get_logger().info('Sending TTS goal...')
         self.tts_client.wait_for_server()
-        send_goal_future = self.tts_client.send_goal_async(goal_msg)
-        rclpy.spin_until_future_complete(self, send_goal_future)
-        goal_handle = send_goal_future.result()
-        if not goal_handle.accepted:
-            self.get_logger().error('TTS goal rejected.')
-            return None
-        result_future = goal_handle.get_result_async()
-        rclpy.spin_until_future_complete(self, result_future)
-        result = result_future.result().result
-        self.get_logger().info(f'TTS result: success={result.success}, message={result.message}')
-        return result
+        self.tts_client.send_goal_async(goal_msg)
+       
     
     def listen(self, continuous=False, publish_partial=False, wave_file=''):
         goal_msg = SpeechDetection.Goal()
@@ -94,6 +85,11 @@ class GPSR_Demo(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = GPSR_Demo()
+
+    # Wait until nodes are up
+    node.speech_client.wait_for_server()
+    node.command_speech_client.wait_for_server()
+    node.grammar_client.wait_for_service()
 
     while rclpy.ok():
         node.tts(text="Please tell me the command")
