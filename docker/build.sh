@@ -25,24 +25,48 @@ ROS_DISTRO=humble
 IMAGE_TAG="voice_ros2"
 
 # Build Base image
-docker build -t ${IMAGE_TAG} \
+docker build -t ${IMAGE_TAG} --target base \
   --build-arg UBUNTU_MAJOR=${UBUNTU_MAJOR} \
   --build-arg UBUNTU_MINOR=${UBUNTU_MINOR} \
   --build-arg CUDA_MAJOR=${CUDA_MAJOR} \
   --build-arg CUDA_MINOR=${CUDA_MINOR} \
   --build-arg CUDA_PATCH=${CUDA_PATCH} \
   --build-arg ROS_DISTRO=${ROS_DISTRO} \
-  -f $PARENT_DIR/coqui_tts_ros2/docker/Base.Dockerfile \
+  -f $PARENT_DIR/coqui_tts_ros2/docker/Dockerfile \
   $PARENT_DIR/coqui_tts_ros2
 
-# Build the coqui_tts_ros2 image using the previously built vosk_ros2 image as base.
-docker build -t ${IMAGE_TAG} \
+# Download coquiTTS
+docker build -t ${IMAGE_TAG} --target build_tts \
   --build-arg BASE_IMAGE=${IMAGE_TAG} \
   -f $PARENT_DIR/coqui_tts_ros2/docker/Dockerfile \
   $PARENT_DIR/coqui_tts_ros2
 
-# Build the vosk_ros2 image using the previously built base image as base.
-docker build -t ${IMAGE_TAG} \
+# Download coqui models
+docker build -t ${IMAGE_TAG} --target download_models \
+  --build-arg BASE_IMAGE=${IMAGE_TAG} \
+  -f $PARENT_DIR/coqui_tts_ros2/docker/Dockerfile \
+  $PARENT_DIR/coqui_tts_ros2
+
+# Download vosk models
+docker build -t ${IMAGE_TAG} --target download_models \
+  --build-arg BASE_IMAGE=${IMAGE_TAG} \
+  -f $PARENT_DIR/vosk_ros2/docker/Dockerfile \
+  $PARENT_DIR/vosk_ros2
+
+# Build custom vosk models (like gpsr)
+docker build -t ${IMAGE_TAG} --target build_custom_models \
+  --build-arg BASE_IMAGE=${IMAGE_TAG} \
+  -f $PARENT_DIR/vosk_ros2/docker/Dockerfile \
+  $PARENT_DIR/vosk_ros2
+
+# Build the coqui_tts_ros2
+docker build -t ${IMAGE_TAG} --target build_ros \
+  --build-arg BASE_IMAGE=${IMAGE_TAG} \
+  -f $PARENT_DIR/coqui_tts_ros2/docker/Dockerfile \
+  $PARENT_DIR/coqui_tts_ros2
+
+# Build the vosk_ros2
+docker build -t ${IMAGE_TAG} --target build \
   --build-arg BASE_IMAGE=${IMAGE_TAG} \
   -f $PARENT_DIR/vosk_ros2/docker/Dockerfile \
   $PARENT_DIR/vosk_ros2
