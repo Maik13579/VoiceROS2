@@ -17,23 +17,23 @@ class GPSR_Demo(Node):
         # Service client for set_grammar
         self.grammar_client = self.create_client(SetGrammar, '/vosk/set_grammar')
 
-    def tts(self, text, language='', speaker_wave='', wait_before_speaking=0.0):
+    def tts(self, text, language='', speaker_wav='', wait_before_speaking=0.0):
         goal_msg = TTSAction.Goal()
         goal_msg.text = text
         goal_msg.language = language
-        goal_msg.speaker_wave = speaker_wave
+        goal_msg.speaker_wav = speaker_wav
         goal_msg.wait_before_speaking = wait_before_speaking
 
         self.get_logger().info('Sending TTS goal...')
         self.tts_client.wait_for_server()
-        self.tts_client.send_goal_async(goal_msg)
+        return self.tts_client.send_goal_async(goal_msg)
        
     
-    def listen(self, continuous=False, publish_partial=False, wave_file=''):
+    def listen(self, continuous=False, publish_partial=False, wav_file=''):
         goal_msg = SpeechDetection.Goal()
         goal_msg.continuous = continuous
         goal_msg.publish_partial = publish_partial
-        goal_msg.wave_file = wave_file
+        goal_msg.wav_file = wav_file
 
         self.get_logger().info('Sending Speech Detection goal...')
         self.speech_client.wait_for_server()
@@ -49,11 +49,11 @@ class GPSR_Demo(Node):
         self.get_logger().info(f'Speech Detection result: {result.final_result.text}')
         return result
 
-    def listen_command(self, continuous=False, publish_partial=False, wave_file=''):
+    def listen_command(self, continuous=False, publish_partial=False, wav_file=''):
         goal_msg = SpeechDetection.Goal()
         goal_msg.continuous = continuous
         goal_msg.publish_partial = publish_partial
-        goal_msg.wave_file = wave_file
+        goal_msg.wav_file = wav_file
 
         self.get_logger().info('Sending Command Speech Detection goal...')
         self.command_speech_client.wait_for_server()
@@ -112,7 +112,8 @@ def main(args=None):
             understood = True
         if "yes" in result.final_result.text:
             break
-        node.tts(text="okay let's try again")
+        future = node.tts(text="okay let's try again")
+        rclpy.spin_until_future_complete(node, future)
     node.tts(text="Okay I will do it")
 
     node.destroy_node()

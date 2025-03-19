@@ -27,7 +27,7 @@ class GPSR_Demo(Node):
 
         self.get_logger().info('Sending TTS goal...')
         self.tts_client.wait_for_server()
-        self.tts_client.send_goal_async(goal_msg)
+        return self.tts_client.send_goal_async(goal_msg)
         
     
     def tts_voice_clone(self, text, language='en', speaker_wav='', wait_before_speaking=0.0):
@@ -127,10 +127,11 @@ def main(args=None):
             understood = True
         if "yes" in result.final_result.text:
             break
-        node.tts_voice_clone(
+        future= node.tts_voice_clone(
             text="okay let's try again",
             speaker_wav=command_wav_path,
         )
+        rclpy.spin_until_future_complete(node, future)
     node.tts_voice_clone(
         text="Okay I will do it",
         speaker_wav=command_wav_path,
