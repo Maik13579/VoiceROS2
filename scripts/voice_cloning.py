@@ -5,6 +5,7 @@ from rclpy.action import ActionClient
 from coqui_tts_ros2_interfaces.action import TTS as TTSAction
 
 from pathlib import Path
+import sys
 
 def get_wav_files_string(folder: str) -> str:
     """
@@ -36,9 +37,13 @@ class GPSR_Demo(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = GPSR_Demo()
+    if len(sys.argv) < 2:
+        print("Usage: python3 voice_cloning.py <text>")
+        sys.exit(1)
+    text = sys.argv[1]
 
     future = node.tts_voice_clone(
-        "Hey Buddy, I wanted to tell you that your work is awesome!",
+        text,
         language='en',
         speaker_wav=get_wav_files_string(folder="/voices/libtrump")
     )
