@@ -38,9 +38,9 @@ def main(args=None):
     node = GPSR_Demo()
 
     future = node.tts_voice_clone(
-        "Hey David, I wanted to tell you that your work is awesome!",
+        "Hey Buddy, I wanted to tell you that your work is awesome!",
         language='en',
-        speaker_wav=get_wav_files_string(folder="/voices/ben")
+        speaker_wav=get_wav_files_string(folder="/voices/libtrump")
     )
 
     rclpy.spin_until_future_complete(node, future)
