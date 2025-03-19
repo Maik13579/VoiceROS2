@@ -47,6 +47,12 @@ docker build -t ${IMAGE_TAG} --target download_models \
   -f $PARENT_DIR/coqui_tts_ros2/docker/Dockerfile \
   $PARENT_DIR/coqui_tts_ros2
 
+# Install vosk deps
+docker build -t ${IMAGE_TAG} --target deps \
+  --build-arg BASE_IMAGE=${IMAGE_TAG} \
+  -f $PARENT_DIR/vosk_ros2/docker/Dockerfile \
+  $PARENT_DIR/vosk_ros2
+
 # Download vosk models
 docker build -t ${IMAGE_TAG} --target download_models \
   --build-arg BASE_IMAGE=${IMAGE_TAG} \
