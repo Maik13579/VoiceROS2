@@ -2,8 +2,8 @@
 
 A ROS 2 workspace integrating both speech-to-text (STT) and text-to-speech (TTS) capabilities using [Vosk](https://github.com/alphacep/vosk-api) and [Coqui TTS](https://github.com/coqui-ai/TTS).  
 This repository combines the two submodules:
-- [`vosk_ros2`](./vosk_ros2) – for speech recognition
-- [`coqui_tts_ros2`](./coqui_tts_ros2) – for text-to-speech synthesis
+- [`vosk_ros2`](https://github.com/Maik13579/vosk_ros2) – for speech recognition
+- [`coqui_tts_ros2`](https://github.com/Maik13579/coqui_tts_ros2) – for text-to-speech synthesis
 
 The `voice_ros2` package contains launch files and parameters to start both nodes from a single entry point.
 
@@ -39,11 +39,11 @@ docker compose -f docker/compose.yaml up
 
 ## Submodules
 
-- [`vosk_ros2`](./vosk_ros2): ROS2 wrapper for Vosk STT with grammar support, speaker recognition, and action/service interface.  
-  → See its [README](./vosk_ros2/README.md) for details.
+- [`vosk_ros2`](https://github.com/Maik13579/vosk_ros2): ROS2 wrapper for Vosk STT with grammar support, speaker recognition, and action/service interface.  
+  → See its README for details.
 
-- [`coqui_tts_ros2`](./coqui_tts_ros2): ROS2 wrapper for Coqui TTS with multi-speaker/emotion support and a ROS2 action interface.  
-  → See its [README](./coqui_tts_ros2/README.md) for details.
+- [`coqui_tts_ros2`](https://github.com/Maik13579/coqui_tts_ros2): ROS2 wrapper for Coqui TTS with multi-speaker/emotion support and a ROS2 action interface.  
+  → See its README for details.
 
 ## Launching
 
