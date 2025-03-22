@@ -51,5 +51,5 @@ The `voice_ros2` package contains launch files and parameter folders to start bo
 You can modify and extend these to suit your use case.
 
 ```bash
-ros2 launch voice_ros2 voice_system.launch.py
+ros2 launch voice_ros2 voice_ros2.launch.py
 ```
